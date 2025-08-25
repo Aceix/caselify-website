@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   modules: ["@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "shadcn-nuxt"],
 
-  css: ["~/assets/css/tailwind.css"],
+  css: ["~/assets/css/tailwind.css", "~/assets/css/main.css"],
 
   vite: {
     plugins: [tailwindcss()],

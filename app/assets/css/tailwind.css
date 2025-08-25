@@ -76,6 +76,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* CUSTOM */
+  --background: rgba(247, 245, 242, 1);
+  --text: rgba(14, 18, 27, 1);
+  --text-sub: rgba(82, 88, 102, 1);
+  --background-yellow: rgba(245, 226, 186, 1);
+  --heading-1: #101323;
+  --heading-2: #080806;
+  --button-bg: #0e121b;
+  --button-bg-gradient: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
 }
 
 .dark {
@@ -119,5 +133,34 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@theme {
+  --color-text: rgba(14, 18, 27, 1);
+  --color-text-sub: rgba(82, 88, 102, 1);
+  --color-bg-yellow: rgba(245, 226, 186, 1);
+  --color-bg-blue: rgba(235, 241, 255, 1);
+  --color-h1: #101323;
+  --color-h2: #080806;
+  --color-btn-bg: #0e121b;
+  --btn-bg-gradient: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+@layer components {
+  .caselify-h1 {
+    @apply text-6xl font-medium leading-20 tracking-[0px] text-center align-middle;
+  }
+
+  .caselify-h2 {
+    @apply text-4xl font-medium leading-14 tracking-tight text-center align-middle;
+  }
+
+  .caselify-h3 {
+    @apply text-2xl font-medium leading-8 tracking-tighter align-middle;
   }
 }
