@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
+  // Handle the navigation item click event
+}
+</script>
 
 <template>
-  <!-- <GridPattern /> -->
+  <!-- <GridPattern class="absolute -z-20" /> -->
+
+  <AppBar @nav-item-clicked="handleNavItemClick" />
 
   <main class="w-full flex flex-col items-center justify-start">
     <section
@@ -62,7 +68,7 @@
         </defs>
       </svg>
 
-      <Tag icon="" content="Smarter Cases, Less Paperwork" />
+      <Tag icon="sparkle" content="Smarter Cases, Less Paperwork" />
       <h1 class="caselify-h1 mt-6">
         AI Legal Intelligence; <br />
         Beyond Case Management
@@ -72,9 +78,7 @@
         learns with your practice.
       </p>
       <div class="mt-6">
-        <div
-          class="h-14 w-[450px] py-1 px-1.5 bg-background rounded-md flex"
-        >
+        <div class="h-14 w-[450px] py-1 px-1.5 bg-background rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]">
           <UiInput
             type="text"
             aria-label="Join the waitlist"
@@ -89,66 +93,89 @@
       <div class="w-4/5 h-[600px] mt-16 bg-white rounded-4xl"></div>
     </section>
 
-    <section id="ai-features" class="container">
-      <Tag icon="" content="AI Features" />
-      <h2>
+    <section
+      id="ai-features"
+      class="container mt-48 flex flex-col items-center"
+    >
+      <Tag icon="sparkle" content="AI Features" />
+      <h2 class="caselify-h2 mt-2">
         Supercharge your operations <br />
         with built-in AI features
       </h2>
 
-      <div class="flex">
-        <div class="flex flex-col rounded-4xl bg-bg-blue">
-          <img src="" alt="ai analytics" />
-          <h3>Intelligent Case Analytics &amp; Insights</h3>
-          <p>
+      <div class="flex gap-4 mt-12">
+        <div
+          class="flex-1 flex flex-col rounded-4xl border border-stroke bg-bg-blue p-6"
+        >
+          <img
+            src="@/assets/imgs/ai-1.png"
+            alt="ai analytics"
+            class="w-full h-auto shadow-[0_12px_16.8px_-3px_rgba(0,0,0,0.05),0_2.75px_3.84px_-2px_rgba(0,0,0,0.07)]"
+          />
+          <h3 class="caselify-h3 mt-4">
+            Intelligent Case Analytics &amp; Insights
+          </h3>
+          <p class="mt-2">
             Turn raw data into real-time intelligence. From overdue tasks to
             workload bottlenecks, AI surfaces the insights that matter so you
             can make faster, smarter decisions.
           </p>
         </div>
-        <div class="flex flex-col rounded-4xl bg-bg-yellow">
-          <h3>AI-Powered Document Assistant</h3>
-          <p>
+        <div
+          class="flex-1 flex flex-col rounded-4xl border border-stroke bg-bg-yellow p-6"
+        >
+          <h3 class="caselify-h3">AI-Powered Document Assistant</h3>
+          <p class="mt-2">
             Summarize, draft, and translate in minutes. Let AI cut through long
             files so your team can focus on strategy instead of paperwork.
           </p>
-          <img src="" alt="ai document processing" />
+          <img
+            src="@/assets/imgs/ai-2.svg"
+            alt="ai document processing"
+            class="mt-4 w-full h-auto"
+          />
         </div>
       </div>
-
-      <div class="flex bg-white">
-        <div class="flex flex-col rounded-4xl">
-          <h3>AI-Driven Research</h3>
+      <div class="flex bg-white rounded-4xl border border-stroke mt-4 p-6">
+        <div class="flex-1 flex flex-col justify-center gap-2 rounded-4xl">
+          <h3 class="caselify-h3">AI-Driven Research</h3>
           <p>
             Go beyond search. Our AI doesn&apos;t just find information, it
             interprets it, summarizing cases, comparing versions, and presenting
             insights you can trust in minutes.
           </p>
         </div>
-        <img src="" alt="ai research" />
+        <img src="@/assets/imgs/ai-3.svg" alt="ai research" class="flex-1" />
       </div>
     </section>
 
-    <section id="core-features" class="container">
-      <Tag icon="" content="Core Features" />
-      <h2>
+    <section
+      id="core-features"
+      class="container mt-48 flex flex-col items-center"
+    >
+      <Tag icon="bookmark" content="Core Features" />
+      <h2 class="caselify-h2 mt-2">
         All Your Firm&apos;s Needs, Covered From <br />
         Start to Finish
       </h2>
 
-      <div class="flex">
-        <div class="flex flex-col flex-2 bg-white rounded-4xl">
-          <h3>Smart Lead Intake</h3>
-          <img src="" alt="lead intake" />
-          <p>
+      <div class="flex gap-4 mb-4 mt-12">
+        <div
+          class="flex flex-col flex-2 border border-stroke bg-white rounded-4xl p-6"
+        >
+          <h3 class="caselify-h3 mb-4">Smart Lead Intake</h3>
+          <img src="@/assets/imgs/feat-1.svg" alt="lead intake" />
+          <p class="mt-4">
             Turn prospects into clients with ease. Automate intake, capture
             details quickly, and never lose track of new opportunities.
           </p>
         </div>
-        <div class="flex flex-col flex-1 bg-white rounded-4xl">
-          <h3>Contacts Management</h3>
-          <img src="" alt="contacts management" />
-          <p>
+        <div
+          class="flex flex-col flex-1 border border-stroke bg-white rounded-4xl p-6"
+        >
+          <h3 class="caselify-h3 mb-4">Contacts Management</h3>
+          <img src="@/assets/imgs/feat-2.svg" alt="contacts management" />
+          <p class="mt-4">
             Keep every relationship in one place. Clients, witnesses, and
             experts are neatly organized so you can access the right information
             when you need it most.
@@ -156,19 +183,23 @@
         </div>
       </div>
 
-      <div class="flex">
-        <div class="flex flex-col flex-1 bg-white rounded-4xl">
-          <h3>Document Management</h3>
-          <img src="" alt="document management" />
-          <p>
+      <div class="flex gap-4">
+        <div
+          class="flex flex-col flex-1 bg-white border border-stroke rounded-4xl p-6"
+        >
+          <h3 class="caselify-h3 mb-4">Document Management</h3>
+          <img src="@/assets/imgs/feat-3.svg" alt="document management" />
+          <p class="mt-4">
             Your documents, always protected. Upload, store, and access files
             with enterprise-grade security and instant retrieval.
           </p>
         </div>
-        <div class="flex flex-col flex-2 bg-white rounded-4xl">
-          <h3>Case Hub</h3>
-          <img src="" alt="case hub" />
-          <p>
+        <div
+          class="flex flex-col flex-2 bg-white border border-stroke rounded-4xl p-6"
+        >
+          <h3 class="caselify-h3 mb-4">Case Hub</h3>
+          <img src="@/assets/imgs/feat-4.svg" alt="case hub" />
+          <p class="mt-4">
             Every detail of a matter in one place—review the overview, track
             court dates in the calendar, manage documents and tasks, capture
             notes, coordinate with contacts & staff, log time entries, and
@@ -178,32 +209,35 @@
       </div>
     </section>
 
-    <section id="waitlist" class="container">
-      <h2>Join the Future of AI-First Legal Practice</h2>
-      <p>
+    <section id="waitlist" class="container mt-48 flex flex-col items-center">
+      <h2 class="caselify-h2">Join the Future of AI-First Legal Practice</h2>
+      <p class="mt-6">
         Get early access to Caselify and transform how your firm manages cases.
       </p>
-      <div class="">
-        <input
+      <div
+        class="mt-6 h-14 w-[450px] py-1 px-1.5 bg-white rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+      >
+        <UiInput
           type="text"
-          placeholder="Email Address"
           aria-label="Join the waitlist"
+          placeholder="Email Address"
+          class="h-full border-none shadow-none focused:outline-0 focused:ring-0"
         />
-        <UiButton>Join the waitlist</UiButton>
+        <UiButton class="h-full">Join the waitlist</UiButton>
       </div>
     </section>
   </main>
 
-  <footer class="w-full flex flex-col items-center">
-    <div class="container py-12 text-text-sub">
+  <footer class="mt-48 bg-white w-full flex flex-col items-center">
+    <div class="container py-20 text-text-sub">
       <div class="flex justify-between items-center">
-        <img src="" alt="Caselify Logo" />
+        <img src="/assets/caselify-logo-dark.svg" alt="Caselify Logo" />
         <a href="mailto:support@caselify.com"> support@caselify.com </a>
       </div>
       <hr class="border-t border-[rgba(196,194,188,1)] my-8" />
       <div class="flex justify-between items-center">
         <p>Product of Hyperlandhq</p>
-        <p>&copy;2025 Caselify</p>
+        <p>&copy;{{ new Date().getFullYear() }} Caselify</p>
       </div>
     </div>
   </footer>

@@ -144,6 +144,7 @@
   --color-h1: #101323;
   --color-h2: #080806;
   --color-btn-bg: #0e121b;
+  --color-stroke: rgba(225,228,234,1);
   --btn-bg-gradient: linear-gradient(
     45deg,
     rgba(255, 255, 255, 1),
