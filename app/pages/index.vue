@@ -5,7 +5,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
 </script>
 
 <template>
-  <!-- <GridPattern class="absolute -z-20" /> -->
+  <GridPattern />
 
   <AppBar @nav-item-clicked="handleNavItemClick" />
 
@@ -90,7 +90,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       </div>
 
       <!-- motion graphic -->
-      <div class="w-4/5 h-[600px] mt-16 bg-white rounded-4xl"></div>
+      <div id="motion-gfx-box" class="w-4/5 h-[600px] mt-16 bg-white rounded-4xl"></div>
     </section>
 
     <section
