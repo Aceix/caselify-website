@@ -1,6 +1,30 @@
 <script setup lang="ts">
+
+const aiSection = useTemplateRef<HTMLDivElement>("ai-section");
+const featuresSection = useTemplateRef<HTMLDivElement>("features-section");
+
 function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
-  // Handle the navigation item click event
+  switch (item) {
+    case "home":
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      break;
+    case "ai":
+      window.scrollTo({
+        top: (aiSection.value?.offsetTop ?? 0) - 100,
+        behavior: "smooth",
+      });
+      break;
+    case "features":
+      window.scrollTo({
+        top: (featuresSection.value?.offsetTop ?? 0) - 100,
+        behavior: "smooth",
+      });
+      break;
+    case "waitlist":
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      document.getElementById("hero-waitlist-input")?.focus();
+      break;
+  }
 }
 </script>
 
@@ -12,7 +36,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
   <main class="w-full flex flex-col items-center justify-start">
     <section
       id="hero-section"
-      class="container mt-48 flex flex-col items-center"
+      class="container px-[1rem] md:px-0 mt-48 flex flex-col items-center"
     >
       <!-- blue hue effect -->
       <svg
@@ -78,8 +102,12 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
         learns with your practice.
       </p>
       <div class="mt-6">
-        <div class="h-14 w-[450px] py-1 px-1.5 bg-background rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]">
+        <div
+          class="h-14 max-w-[450px] py-1 px-1.5 bg-background rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+        >
           <UiInput
+            id="hero-waitlist-input"
+            ref="hero-waitlist-input"
             type="text"
             aria-label="Join the waitlist"
             placeholder="Email Address"
@@ -90,12 +118,16 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       </div>
 
       <!-- motion graphic -->
-      <div id="motion-gfx-box" class="w-4/5 h-[600px] mt-16 bg-white rounded-4xl"></div>
+      <div
+        id="motion-gfx-box"
+        class="hidden md:block w-[1077px] h-[600px] mt-16 bg-white rounded-4xl"
+      ></div>
     </section>
 
     <section
       id="ai-features"
-      class="container mt-48 flex flex-col items-center"
+      ref="ai-section"
+      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
     >
       <Tag icon="sparkle" content="AI Features" />
       <h2 class="caselify-h2 mt-2">
@@ -103,7 +135,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
         with built-in AI features
       </h2>
 
-      <div class="flex gap-4 mt-12">
+      <div class="flex flex-col md:flex-row gap-4 mt-12">
         <div
           class="flex-1 flex flex-col rounded-4xl border border-stroke bg-bg-blue p-6"
         >
@@ -136,7 +168,9 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
           />
         </div>
       </div>
-      <div class="flex bg-white rounded-4xl border border-stroke mt-4 p-6">
+      <div
+        class="flex flex-col md:flex-row bg-white rounded-4xl border border-stroke mt-4 p-6"
+      >
         <div class="flex-1 flex flex-col justify-center gap-2 rounded-4xl">
           <h3 class="caselify-h3">AI-Driven Research</h3>
           <p>
@@ -151,7 +185,8 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
 
     <section
       id="core-features"
-      class="container mt-48 flex flex-col items-center"
+      ref="features-section"
+      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
     >
       <Tag icon="bookmark" content="Core Features" />
       <h2 class="caselify-h2 mt-2">
@@ -159,7 +194,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
         Start to Finish
       </h2>
 
-      <div class="flex gap-4 mb-4 mt-12">
+      <div class="flex flex-col md:flex-row gap-4 mb-4 mt-12">
         <div
           class="flex flex-col flex-2 border border-stroke bg-white rounded-4xl p-6"
         >
@@ -183,7 +218,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
         </div>
       </div>
 
-      <div class="flex gap-4">
+      <div class="flex flex-col md:flex-row gap-4">
         <div
           class="flex flex-col flex-1 bg-white border border-stroke rounded-4xl p-6"
         >
@@ -209,13 +244,16 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       </div>
     </section>
 
-    <section id="waitlist" class="container mt-48 flex flex-col items-center">
+    <section
+      id="waitlist"
+      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
+    >
       <h2 class="caselify-h2">Join the Future of AI-First Legal Practice</h2>
-      <p class="mt-6">
+      <p class="mt-6 text-center md:text-start">
         Get early access to Caselify and transform how your firm manages cases.
       </p>
       <div
-        class="mt-6 h-14 w-[450px] py-1 px-1.5 bg-white rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+        class="mt-6 h-14 max-w-[450px] py-1 px-1.5 bg-white rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
       >
         <UiInput
           type="text"
@@ -228,14 +266,18 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
     </section>
   </main>
 
-  <footer class="mt-48 bg-white w-full flex flex-col items-center">
-    <div class="container py-20 text-text-sub">
-      <div class="flex justify-between items-center">
+  <footer class="mt-24 md:mt-48 bg-white w-full flex flex-col items-center">
+    <div class="container px-[1rem] md:px-0 py-20 text-text-sub">
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-center"
+      >
         <img src="/assets/caselify-logo-dark.svg" alt="Caselify Logo" />
         <a href="mailto:support@caselify.com"> support@caselify.com </a>
       </div>
       <hr class="border-t border-[rgba(196,194,188,1)] my-8" />
-      <div class="flex justify-between items-center">
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-center"
+      >
         <p>Product of Hyperlandhq</p>
         <p>&copy;{{ new Date().getFullYear() }} Caselify</p>
       </div>

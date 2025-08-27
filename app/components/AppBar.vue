@@ -10,7 +10,7 @@ const { y } = useWindowScroll({ behavior: "smooth" });
 
 <template>
   <header
-    class="transition-all fixed top-8 left-1/2 -translate-x-1/2 container py-4 px-6 bg-white rounded-md flex items-center justify-between border border-stroke"
+    class="mx-[1rem] md:mx-0 w-[calc(100%-2rem)] md:w-full transition-all fixed top-8 left-1/2 -translate-x-[calc(50%+1rem)] md:-translate-x-1/2 container py-4 px-6 bg-white rounded-md flex items-center justify-between border border-stroke"
     :class="{
       '!bg-white/50 backdrop-blur-xs': y > 300,
     }"
@@ -27,7 +27,7 @@ const { y } = useWindowScroll({ behavior: "smooth" });
         }
       "
     />
-    <nav class="flex gap-8">
+    <nav class="hidden lg:flex gap-8">
       <span
         class="cursor-pointer hover:underline active:text-text-sub"
         @click="$emit('nav-item-clicked', 'ai')"

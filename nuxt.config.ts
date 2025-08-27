@@ -25,4 +25,22 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui",
   },
+
+  app: {
+    head: {
+      title: "Caselify :: Homepage",
+      charset: "utf-16",
+      viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+      meta: [
+        {
+          name: "description",
+          content: "AI legal intelligence; beyond case management.",
+        },
+        {
+          property: "og:image",
+          content: "/assets/caselify-logo-dark.svg",
+        },
+      ],
+    },
+  },
 });

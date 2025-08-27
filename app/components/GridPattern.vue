@@ -25,7 +25,7 @@ function drawSquares() {
   const isSmallScreen = window.innerWidth < 640;
 
   const squareColor = "rgba(244, 233, 215, 0.5)";
-  const strokeColor = "rgba(107, 107, 107, 0.1)";
+  const strokeColor = "rgba(107, 107, 107, 0.05)";
 
   if (!gridCanvas.value) return;
 
@@ -39,7 +39,7 @@ function drawSquares() {
   const boxThreshold = heightOfHeroSection - heightOfMotionGfxBox / 5;
   const screenHeight = window.innerHeight;
 
-  const squareSize = 60;
+  const squareSize = isSmallScreen ? 20 : 60;
   const rows = Math.ceil(gridCanvas.value.height / squareSize);
   const cols = Math.ceil(gridCanvas.value.width / squareSize);
 

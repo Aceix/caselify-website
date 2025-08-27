@@ -164,4 +164,18 @@
   .caselify-h3 {
     @apply text-2xl font-medium leading-8 tracking-tighter align-middle;
   }
+
+  @media (max-width: 640px) {
+    .caselify-h1 {
+      @apply text-3xl leading-10 tracking-normal;
+    }
+
+    .caselify-h2 {
+      @apply text-2xl leading-10 tracking-tight;
+    }
+
+    .caselify-h3 {
+      @apply text-xl leading-8 tracking-tighter;
+    }
+  }
 }
