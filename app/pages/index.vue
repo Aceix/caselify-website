@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const aiSection = useTemplateRef<HTMLDivElement>("ai-section");
 const featuresSection = useTemplateRef<HTMLDivElement>("features-section");
 
@@ -100,6 +99,9 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       <p class="mt-6 text-center">
         Securely manage every case with AI that drafts, organises and <br />
         learns with your practice.
+        <span class="font-semibold text-[rgba(14,18,27,1)]">
+          Built for Africa, and expanding globally!
+        </span>
       </p>
       <div class="mt-6">
         <div
@@ -120,8 +122,17 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       <!-- motion graphic -->
       <div
         id="motion-gfx-box"
-        class="hidden md:block w-[1077px] h-[600px] mt-16 bg-white rounded-4xl"
-      ></div>
+        class="max-w-[1077px] max-h-[600px] mt-16 bg-white rounded-4xl p-4 md:p-8"
+      >
+        <video
+          src="/assets/caselify-demo.mp4"
+          poster="/assets/caselify-demo.webp"
+          class=""
+          autoplay
+          loop
+          muted
+        ></video>
+      </div>
     </section>
 
     <section
