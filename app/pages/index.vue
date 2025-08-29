@@ -1,11 +1,31 @@
 <script setup lang="ts">
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+const c = useRuntimeConfig();
+
+const isSupabaseAvailable = ref(false);
+
+let supabase: SupabaseClient;
+try {
+  supabase = createClient(
+    c.public.supabaseUrl,
+    c.public.supabasePublishableKey
+  );
+  isSupabaseAvailable.value = true;
+} catch (err) {
+  console.log("DB is unreachable: ", err);
+}
+
 const aiSection = useTemplateRef<HTMLDivElement>("ai-section");
 const featuresSection = useTemplateRef<HTMLDivElement>("features-section");
-const justiceSection = useTemplateRef<HTMLDivElement>("justice-and-impact-section");
+const justiceSection = useTemplateRef<HTMLDivElement>(
+  "justice-and-impact-section"
+);
 
 const isHeroWaitlistInputFocused = ref(false);
 
-function handleNavItemClick(item: "home" | "ai" | "features" | "justice-and-impact" | "waitlist") {
+function handleNavItemClick(
+  item: "home" | "ai" | "features" | "justice-and-impact" | "waitlist"
+) {
   switch (item) {
     case "home":
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -37,12 +57,18 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "justice-and-impa
 
 const email = ref("");
 const formState = ref<"idle" | "invalid" | "submitting" | "submitted">("idle");
+const formErrorMsg = ref("");
+const timerRef = ref<ReturnType<typeof setTimeout>>();
 
 async function handleJoinWaitlist() {
   if (formState.value === "submitted") return;
+  if (timerRef.value) {
+    clearTimeout(timerRef.value);
+    formErrorMsg.value = "";
+  }
   if (!email.value || !email.value.includes("@")) {
     formState.value = "invalid";
-    setTimeout(() => {
+    timerRef.value = setTimeout(() => {
       formState.value = "idle";
     }, 3000);
     return;
@@ -50,18 +76,25 @@ async function handleJoinWaitlist() {
 
   formState.value = "submitting";
   try {
-    // await api.joinWaitlist(email.value);
-    setTimeout(() => {
-      formState.value = "submitted";
-      alert("Successfully joined the waitlist!");
-    }, 2000);
+    const { error } = await supabase
+      ?.from("waitlist")
+      .insert({ email: email.value.trim().toLowerCase() });
+    if (error) throw error;
+    formState.value = "submitted";
   } catch (error) {
     console.error("Error joining waitlist:", error);
+    if (
+      JSON.stringify(error || "")
+        .toLocaleLowerCase()
+        .includes("duplicate")
+    ) {
+      formErrorMsg.value = "Email is already on the waitlist.";
+    }
     formState.value = "invalid";
-    setTimeout(() => {
+    timerRef.value = setTimeout(() => {
       formState.value = "idle";
+      formErrorMsg.value = "";
     }, 3000);
-    alert("Failed to join the waitlist.");
   }
 }
 </script>
@@ -169,9 +202,10 @@ async function handleJoinWaitlist() {
             :class="{
               'w-full md:w-fit mt-2 md:mt-0': isHeroWaitlistInputFocused,
             }"
+            :disabled="!isSupabaseAvailable"
             @click="handleJoinWaitlist"
           >
-            {{ formState === 'submitted' ? 'Thank you!' : 'Join the waitlist' }}
+            {{ formState === "submitted" ? "Thank you!" : "Join the waitlist" }}
             <span v-if="formState === 'submitting'" class="ms-2 animate-spin">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -186,11 +220,12 @@ async function handleJoinWaitlist() {
                   stroke-linejoin="round"
                   d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
                 />
-              </svg>              
+              </svg>
             </span>
           </UiButton>
         </div>
       </div>
+      <span class="text-xs text-red-500 mt-2">{{ formErrorMsg }}</span>
 
       <!-- motion graphic -->
       <div
@@ -346,16 +381,24 @@ async function handleJoinWaitlist() {
           <h3 class="caselify-h3 mb-4">Pro Bono &amp; Legal Aid</h3>
           <img src="@/assets/imgs/justice-1.png" alt="lead intake" />
           <p class="mt-4">
-            Easily log, organize, and manage pro bono matters alongside billable work. Caselify empowers firms to meet reporting requirements while ensuring their contribution to access-to-justice is visible, measurable, and impactful.
+            Easily log, organize, and manage pro bono matters alongside billable
+            work. Caselify empowers firms to meet reporting requirements while
+            ensuring their contribution to access-to-justice is visible,
+            measurable, and impactful.
           </p>
         </div>
         <div
           class="flex flex-col flex-2 border border-stroke bg-white rounded-4xl p-6"
         >
           <h3 class="caselify-h3 mb-4">Justice Impact Analysis</h3>
-          <img src="@/assets/imgs/justice-2.png" alt="justice impact analysis" />
+          <img
+            src="@/assets/imgs/justice-2.png"
+            alt="justice impact analysis"
+          />
           <p class="mt-4">
-            Track the real-world outcomes of your legal work. From pro bono hours to the number of communities supported, Caselify gives you clear insights into how your practice advances justice.
+            Track the real-world outcomes of your legal work. From pro bono
+            hours to the number of communities supported, Caselify gives you
+            clear insights into how your practice advances justice.
           </p>
         </div>
       </div>
@@ -396,9 +439,10 @@ async function handleJoinWaitlist() {
             :class="{
               'w-full md:w-fit mt-2 md:mt-0': isHeroWaitlistInputFocused,
             }"
+            :disabled="!isSupabaseAvailable"
             @click="handleJoinWaitlist"
           >
-            {{ formState === 'submitted' ? 'Thank you!' : 'Join the waitlist' }}
+            {{ formState === "submitted" ? "Thank you!" : "Join the waitlist" }}
             <span v-if="formState === 'submitting'" class="ms-2 animate-spin">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -413,9 +457,12 @@ async function handleJoinWaitlist() {
                   stroke-linejoin="round"
                   d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
                 />
-              </svg>              
+              </svg>
             </span>
           </UiButton>
+        </div>
+        <div class="text-center text-xs text-red-500 mt-2">
+          {{ formErrorMsg }}
         </div>
       </div>
     </section>
