@@ -1,10 +1,11 @@
 <script setup lang="ts">
 const aiSection = useTemplateRef<HTMLDivElement>("ai-section");
 const featuresSection = useTemplateRef<HTMLDivElement>("features-section");
+const justiceSection = useTemplateRef<HTMLDivElement>("justice-and-impact-section");
 
 const isHeroWaitlistInputFocused = ref(false);
 
-function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
+function handleNavItemClick(item: "home" | "ai" | "features" | "justice-and-impact" | "waitlist") {
   switch (item) {
     case "home":
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -18,6 +19,12 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
     case "features":
       window.scrollTo({
         top: (featuresSection.value?.offsetTop ?? 0) - 100,
+        behavior: "smooth",
+      });
+      break;
+    case "justice-and-impact":
+      window.scrollTo({
+        top: (justiceSection.value?.offsetTop ?? 0) - 100,
         behavior: "smooth",
       });
       break;
@@ -316,6 +323,39 @@ async function handleJoinWaitlist() {
             court dates in the calendar, manage documents and tasks, capture
             notes, coordinate with contacts & staff, log time entries, and
             follow status updates without missing a beat.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="justice-and-impact-section"
+      ref="justice-and-impact-section"
+      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
+    >
+      <Tag icon="bookmark" content="Social Impacts" />
+      <h2 class="caselify-h2 mt-2">
+        Expanding Access to Justice <br />
+        Through Technology
+      </h2>
+
+      <div class="flex flex-col md:flex-row gap-4 mb-4 mt-12">
+        <div
+          class="flex flex-col flex-1 border border-stroke bg-white rounded-4xl p-6"
+        >
+          <h3 class="caselify-h3 mb-4">Pro Bono &amp; Legal Aid</h3>
+          <img src="@/assets/imgs/justice-1.png" alt="lead intake" />
+          <p class="mt-4">
+            Easily log, organize, and manage pro bono matters alongside billable work. Caselify empowers firms to meet reporting requirements while ensuring their contribution to access-to-justice is visible, measurable, and impactful.
+          </p>
+        </div>
+        <div
+          class="flex flex-col flex-2 border border-stroke bg-white rounded-4xl p-6"
+        >
+          <h3 class="caselify-h3 mb-4">Justice Impact Analysis</h3>
+          <img src="@/assets/imgs/justice-2.png" alt="justice impact analysis" />
+          <p class="mt-4">
+            Track the real-world outcomes of your legal work. From pro bono hours to the number of communities supported, Caselify gives you clear insights into how your practice advances justice.
           </p>
         </div>
       </div>

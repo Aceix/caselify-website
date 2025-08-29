@@ -2,7 +2,10 @@
 import { useWindowScroll } from "@vueuse/core";
 
 defineEmits<
-  (e: "nav-item-clicked", item: "home" | "ai" | "features" | "waitlist") => void
+  (
+    e: "nav-item-clicked",
+    item: "home" | "ai" | "features" | "justice-and-impact" | "waitlist"
+  ) => void
 >();
 
 const { y } = useWindowScroll({ behavior: "smooth" });
@@ -39,6 +42,12 @@ const { y } = useWindowScroll({ behavior: "smooth" });
         @click="$emit('nav-item-clicked', 'features')"
       >
         Features
+      </span>
+      <span
+        class="cursor-pointer hover:underline active:text-text-sub"
+        @click="$emit('nav-item-clicked', 'justice-and-impact')"
+      >
+        Justice &amp; Impact
       </span>
     </nav>
     <UiButton
