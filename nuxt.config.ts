@@ -28,13 +28,14 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Caselify :: Homepage",
+      title: "Caselify: AI Legal Intelligence; Beyond Case Management",
       charset: "utf-16",
       viewport: "width=device-width, initial-scale=1, maximum-scale=1",
       meta: [
         {
           name: "description",
-          content: "AI legal intelligence; beyond case management.",
+          content:
+            "Securely manage every case with AI that drafts, organises and learns with your practice. Built for Africa, and expanding globally!",
         },
         {
           property: "og:image",

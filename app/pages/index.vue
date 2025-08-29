@@ -2,6 +2,8 @@
 const aiSection = useTemplateRef<HTMLDivElement>("ai-section");
 const featuresSection = useTemplateRef<HTMLDivElement>("features-section");
 
+const isHeroWaitlistInputFocused = ref(false);
+
 function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
   switch (item) {
     case "home":
@@ -25,10 +27,40 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       break;
   }
 }
+
+const email = ref("");
+const formState = ref<"idle" | "invalid" | "submitting" | "submitted">("idle");
+
+async function handleJoinWaitlist() {
+  if (formState.value === "submitted") return;
+  if (!email.value || !email.value.includes("@")) {
+    formState.value = "invalid";
+    setTimeout(() => {
+      formState.value = "idle";
+    }, 3000);
+    return;
+  }
+
+  formState.value = "submitting";
+  try {
+    // await api.joinWaitlist(email.value);
+    setTimeout(() => {
+      formState.value = "submitted";
+      alert("Successfully joined the waitlist!");
+    }, 2000);
+  } catch (error) {
+    console.error("Error joining waitlist:", error);
+    formState.value = "invalid";
+    setTimeout(() => {
+      formState.value = "idle";
+    }, 3000);
+    alert("Failed to join the waitlist.");
+  }
+}
 </script>
 
 <template>
-  <GridPattern />
+  <GridPattern class="hidden md:block" />
 
   <AppBar @nav-item-clicked="handleNavItemClick" />
 
@@ -105,17 +137,51 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       </p>
       <div class="mt-6">
         <div
-          class="h-14 max-w-[450px] py-1 px-1.5 bg-background rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+          class="transition-all min-h-14 flex items-center max-w-[450px] py-1 px-1.5 bg-background rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+          :class="{
+            'flex-col md:flex-row': isHeroWaitlistInputFocused,
+            'outline-2 outline-offset-2 outline-red-400':
+              formState === 'invalid',
+          }"
         >
           <UiInput
             id="hero-waitlist-input"
             ref="hero-waitlist-input"
-            type="text"
+            type="email"
             aria-label="Join the waitlist"
             placeholder="Email Address"
-            class="h-full border-none shadow-none focused:outline-0 focused:ring-0"
+            class="h-full min-h-9 border-none shadow-none focus:outline-0 focus:ring-0"
+            :model-value="email"
+            :disabled="formState === 'submitted'"
+            @update:model-value="email = String($event)"
+            @focused="isHeroWaitlistInputFocused = $event ? $event : !!email"
+            @keyup.enter="handleJoinWaitlist"
           />
-          <UiButton class="h-full">Join the waitlist</UiButton>
+          <UiButton
+            class="h-full"
+            :class="{
+              'w-full md:w-fit mt-2 md:mt-0': isHeroWaitlistInputFocused,
+            }"
+            @click="handleJoinWaitlist"
+          >
+            {{ formState === 'submitted' ? 'Thank you!' : 'Join the waitlist' }}
+            <span v-if="formState === 'submitting'" class="ms-2 animate-spin">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                class="w-4 h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                />
+              </svg>              
+            </span>
+          </UiButton>
         </div>
       </div>
 
@@ -173,7 +239,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
             files so your team can focus on strategy instead of paperwork.
           </p>
           <img
-            src="@/assets/imgs/ai-2.svg"
+            src="@/assets/imgs/ai-2.png"
             alt="ai document processing"
             class="mt-4 w-full h-auto"
           />
@@ -190,7 +256,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
             insights you can trust in minutes.
           </p>
         </div>
-        <img src="@/assets/imgs/ai-3.svg" alt="ai research" class="flex-1" />
+        <img src="@/assets/imgs/ai-3.png" alt="ai research" class="flex-1" />
       </div>
     </section>
 
@@ -210,7 +276,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
           class="flex flex-col flex-2 border border-stroke bg-white rounded-4xl p-6"
         >
           <h3 class="caselify-h3 mb-4">Smart Lead Intake</h3>
-          <img src="@/assets/imgs/feat-1.svg" alt="lead intake" />
+          <img src="@/assets/imgs/feat-1.png" alt="lead intake" />
           <p class="mt-4">
             Turn prospects into clients with ease. Automate intake, capture
             details quickly, and never lose track of new opportunities.
@@ -220,7 +286,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
           class="flex flex-col flex-1 border border-stroke bg-white rounded-4xl p-6"
         >
           <h3 class="caselify-h3 mb-4">Contacts Management</h3>
-          <img src="@/assets/imgs/feat-2.svg" alt="contacts management" />
+          <img src="@/assets/imgs/feat-2.png" alt="contacts management" />
           <p class="mt-4">
             Keep every relationship in one place. Clients, witnesses, and
             experts are neatly organized so you can access the right information
@@ -234,7 +300,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
           class="flex flex-col flex-1 bg-white border border-stroke rounded-4xl p-6"
         >
           <h3 class="caselify-h3 mb-4">Document Management</h3>
-          <img src="@/assets/imgs/feat-3.svg" alt="document management" />
+          <img src="@/assets/imgs/feat-3.png" alt="document management" />
           <p class="mt-4">
             Your documents, always protected. Upload, store, and access files
             with enterprise-grade security and instant retrieval.
@@ -244,7 +310,7 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
           class="flex flex-col flex-2 bg-white border border-stroke rounded-4xl p-6"
         >
           <h3 class="caselify-h3 mb-4">Case Hub</h3>
-          <img src="@/assets/imgs/feat-4.svg" alt="case hub" />
+          <img src="@/assets/imgs/feat-4.png" alt="case hub" />
           <p class="mt-4">
             Every detail of a matter in one place—review the overview, track
             court dates in the calendar, manage documents and tasks, capture
@@ -263,16 +329,54 @@ function handleNavItemClick(item: "home" | "ai" | "features" | "waitlist") {
       <p class="mt-6 text-center md:text-start">
         Get early access to Caselify and transform how your firm manages cases.
       </p>
-      <div
-        class="mt-6 h-14 max-w-[450px] py-1 px-1.5 bg-white rounded-md flex shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
-      >
-        <UiInput
-          type="text"
-          aria-label="Join the waitlist"
-          placeholder="Email Address"
-          class="h-full border-none shadow-none focused:outline-0 focused:ring-0"
-        />
-        <UiButton class="h-full">Join the waitlist</UiButton>
+      <div class="mt-6">
+        <div
+          class="transition-all min-h-14 flex items-center max-w-[450px] py-1 px-1.5 bg-white rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+          :class="{
+            'flex-col md:flex-row': isHeroWaitlistInputFocused,
+            'outline-2 outline-offset-2 outline-red-400':
+              formState === 'invalid',
+          }"
+        >
+          <UiInput
+            id="hero-waitlist-input"
+            ref="hero-waitlist-input"
+            type="email"
+            aria-label="Join the waitlist"
+            placeholder="Email Address"
+            class="h-full min-h-9 border-none shadow-none focus:outline-0 focus:ring-0"
+            :model-value="email"
+            :disabled="formState === 'submitted'"
+            @update:model-value="email = String($event)"
+            @focused="isHeroWaitlistInputFocused = $event ? $event : !!email"
+            @keyup.enter="handleJoinWaitlist"
+          />
+          <UiButton
+            class="h-full"
+            :class="{
+              'w-full md:w-fit mt-2 md:mt-0': isHeroWaitlistInputFocused,
+            }"
+            @click="handleJoinWaitlist"
+          >
+            {{ formState === 'submitted' ? 'Thank you!' : 'Join the waitlist' }}
+            <span v-if="formState === 'submitting'" class="ms-2 animate-spin">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                class="w-4 h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                />
+              </svg>              
+            </span>
+          </UiButton>
+        </div>
       </div>
     </section>
   </main>

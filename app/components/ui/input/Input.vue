@@ -6,11 +6,13 @@ import { cn } from "@/lib/utils"
 const props = defineProps<{
   defaultValue?: string | number
   modelValue?: string | number
+  disabled?: boolean
   class?: HTMLAttributes["class"]
 }>()
 
 const emits = defineEmits<{
-  (e: "update:modelValue", payload: string | number): void
+  (e: "update:modelValue", payload: string | number): void,
+  (e: "focused", payload: boolean): void
 }>()
 
 const modelValue = useVModel(props, "modelValue", emits, {
@@ -29,5 +31,8 @@ const modelValue = useVModel(props, "modelValue", emits, {
       'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
       props.class,
     )"
+    :disabled="disabled"
+    @focus="emits('focused', true)"
+    @blur="emits('focused', false)"
   >
 </template>
