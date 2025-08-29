@@ -107,7 +107,7 @@ async function handleJoinWaitlist() {
   <main class="w-full flex flex-col items-center justify-start">
     <section
       id="hero-section"
-      class="container px-[1rem] md:px-0 mt-48 flex flex-col items-center"
+      class="container px-[1rem] xl:px-0 mt-48 flex flex-col items-center"
     >
       <!-- blue hue effect -->
       <svg
@@ -246,7 +246,7 @@ async function handleJoinWaitlist() {
     <section
       id="ai-features"
       ref="ai-section"
-      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
+      class="container px-[1rem] xl:px-0 mt-24 md:mt-48 flex flex-col items-center"
     >
       <Tag icon="sparkle" content="AI Features" />
       <h2 class="caselify-h2 mt-2">
@@ -298,14 +298,16 @@ async function handleJoinWaitlist() {
             insights you can trust in minutes.
           </p>
         </div>
-        <img src="@/assets/imgs/ai-3.png" alt="ai research" class="flex-1" />
+        <div class="flex-1">
+          <img src="@/assets/imgs/ai-3.png" alt="ai research" class="flex-1" />
+        </div>
       </div>
     </section>
 
     <section
       id="core-features"
       ref="features-section"
-      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
+      class="container px-[1rem] xl:px-0 mt-24 md:mt-48 flex flex-col items-center"
     >
       <Tag icon="bookmark" content="Core Features" />
       <h2 class="caselify-h2 mt-2">
@@ -366,7 +368,7 @@ async function handleJoinWaitlist() {
     <section
       id="justice-and-impact-section"
       ref="justice-and-impact-section"
-      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
+      class="container px-[1rem] xl:px-0 mt-24 md:mt-48 flex flex-col items-center"
     >
       <Tag icon="bookmark" content="Social Impacts" />
       <h2 class="caselify-h2 mt-2">
@@ -406,7 +408,7 @@ async function handleJoinWaitlist() {
 
     <section
       id="waitlist"
-      class="container px-[1rem] md:px-0 mt-24 md:mt-48 flex flex-col items-center"
+      class="container px-[1rem] xl:px-0 mt-24 md:mt-48 flex flex-col items-center"
     >
       <h2 class="caselify-h2">Join the Future of AI-First Legal Practice</h2>
       <p class="mt-6 text-center md:text-start">
@@ -469,7 +471,7 @@ async function handleJoinWaitlist() {
   </main>
 
   <footer class="mt-24 md:mt-48 bg-white w-full flex flex-col items-center">
-    <div class="container px-[1rem] md:px-0 py-20 text-text-sub">
+    <div class="container px-[1rem] xl:px-0 py-20 text-text-sub">
       <div
         class="flex flex-col md:flex-row justify-between items-start md:items-center"
       >
