@@ -166,20 +166,23 @@ async function handleJoinWaitlist() {
       <Tag icon="sparkle" content="Smarter Cases, Less Paperwork" />
       <h1 class="caselify-h1 mt-6">
         AI Legal Intelligence; <br />
-        Beyond Case Management
+        Justice Matters
       </h1>
       <p class="mt-6 text-center">
-        Securely manage every case with AI that drafts, organises and <br />
-        learns with your practice.
+        Transform how you manage cases with AI. From clients to courts to
+        communities, <br class="hidden lg:block" />
+        Caselify helps firms work smarter while advancing access to justice.
+        <br />
         <span class="font-semibold text-[rgba(14,18,27,1)]">
           Built for Africa, and expanding globally!
         </span>
       </p>
-      <div class="mt-6">
+      <div class="mt-6 w-full flex justify-center">
         <div
-          class="transition-all min-h-14 flex items-center max-w-[450px] py-1 px-1.5 bg-background rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+          class="transition-all min-h-14 flex items-center w-[450px] py-1 px-1.5 bg-background rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
           :class="{
             'flex-col md:flex-row': isHeroWaitlistInputFocused,
+            'w-full lg:w-[450px]': isHeroWaitlistInputFocused,
             'outline-2 outline-offset-2 outline-red-400':
               formState === 'invalid',
           }"
@@ -190,7 +193,7 @@ async function handleJoinWaitlist() {
             type="email"
             aria-label="Join the waitlist"
             placeholder="Email Address"
-            class="h-full min-h-9 border-none shadow-none focus:outline-0 focus:ring-0"
+            class="h-12 min-h-9 border-none shadow-none focus:outline-0 focus:ring-0"
             :model-value="email"
             :disabled="formState === 'submitted'"
             @update:model-value="email = String($event)"
@@ -198,7 +201,7 @@ async function handleJoinWaitlist() {
             @keyup.enter="handleJoinWaitlist"
           />
           <UiButton
-            class="h-full"
+            class="h-12"
             :class="{
               'w-full md:w-fit mt-2 md:mt-0': isHeroWaitlistInputFocused,
             }"
@@ -414,11 +417,12 @@ async function handleJoinWaitlist() {
       <p class="mt-6 text-center md:text-start">
         Get early access to Caselify and transform how your firm manages cases.
       </p>
-      <div class="mt-6">
+      <div class="mt-6 w-full flex justify-center">
         <div
-          class="transition-all min-h-14 flex items-center max-w-[450px] py-1 px-1.5 bg-white rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+          class="transition-all min-h-14 flex items-center w-[450px] py-1 px-1.5 bg-background rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
           :class="{
             'flex-col md:flex-row': isHeroWaitlistInputFocused,
+            'w-full lg:w-[450px]': isHeroWaitlistInputFocused,
             'outline-2 outline-offset-2 outline-red-400':
               formState === 'invalid',
           }"
@@ -429,7 +433,7 @@ async function handleJoinWaitlist() {
             type="email"
             aria-label="Join the waitlist"
             placeholder="Email Address"
-            class="h-full min-h-9 border-none shadow-none focus:outline-0 focus:ring-0"
+            class="h-12 min-h-9 border-none shadow-none focus:outline-0 focus:ring-0"
             :model-value="email"
             :disabled="formState === 'submitted'"
             @update:model-value="email = String($event)"
@@ -437,7 +441,7 @@ async function handleJoinWaitlist() {
             @keyup.enter="handleJoinWaitlist"
           />
           <UiButton
-            class="h-full"
+            class="h-12"
             :class="{
               'w-full md:w-fit mt-2 md:mt-0': isHeroWaitlistInputFocused,
             }"
