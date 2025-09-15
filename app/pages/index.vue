@@ -417,9 +417,9 @@ async function handleJoinWaitlist() {
       <p class="mt-6 text-center md:text-start">
         Get early access to Caselify and transform how your firm manages cases.
       </p>
-      <div class="mt-6 w-full flex justify-center">
+      <div class="mt-6 w-full flex flex-col justify-center items-center">
         <div
-          class="transition-all min-h-14 flex items-center w-[450px] py-1 px-1.5 bg-white rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
+          class="transition-all min-h-14 flex items-center max-w-[450px] py-1 px-1.5 bg-white rounded-md shadow-[0px_0px_0px_0.72px_rgba(18,55,105,0.08),0px_0.72px_1.44px_0px_rgba(164,172,185,0.24)]"
           :class="{
             'flex-col md:flex-row': isHeroWaitlistInputFocused,
             'w-full lg:w-[450px]': isHeroWaitlistInputFocused,
